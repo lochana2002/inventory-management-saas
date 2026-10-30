@@ -1,2 +1,2 @@
 # inventory-management-saas
-A multi-user inventory management SaaS application built with React, Laravel, MySQL, and Tailwind CSS.
+A multi-user inventory management SaaS application built with Angular, ASP.NET Core Web API, SQL Server.
