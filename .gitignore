@@ -1,0 +1,18 @@
+# .NET build files
+**/bin/
+**/obj/
+
+# Angular / Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
