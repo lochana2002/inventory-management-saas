@@ -1,0 +1,97 @@
+<div class="reports-page">
+
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">INVENTORY ANALYTICS</span>
+      <h1>Inventory Reports</h1>
+      <p>Get an overview of your inventory performance.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="loadReport()">
+      ↻ Refresh Reports
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadReport()">Try Again</button>
+  </div>
+
+  <ng-container *ngIf="report as data">
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <span>Total Products</span>
+        <h2>{{ data.totalProducts }}</h2>
+        <p>Products in your inventory</p>
+      </div>
+
+      <div class="stat-card">
+        <span>Total Stock Quantity</span>
+        <h2>{{ data.totalStockQuantity }}</h2>
+        <p>Total available units</p>
+      </div>
+
+      <div class="stat-card">
+        <span>Inventory Value</span>
+        <h2>{{ data.totalInventoryValue | currency:'LKR ':'symbol':'1.2-2' }}</h2>
+        <p>Current stock value</p>
+      </div>
+
+      <div class="stat-card">
+        <span>Low Stock Products</span>
+        <h2 class="warning">{{ data.lowStockProducts }}</h2>
+        <p>Products requiring restocking</p>
+      </div>
+
+      <div class="stat-card">
+        <span>Out of Stock</span>
+        <h2 class="danger">{{ data.outOfStockProducts }}</h2>
+        <p>Products with zero quantity</p>
+      </div>
+
+    </div>
+
+    <section class="category-section">
+
+      <div class="section-heading">
+        <h2>Stock by Category</h2>
+        <p>Inventory breakdown across product categories.</p>
+      </div>
+
+      <div class="table-container">
+
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Products</th>
+              <th>Total Quantity</th>
+              <th>Inventory Value</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let category of data.stockByCategory">
+              <td class="category-name">{{ category.category }}</td>
+              <td>{{ category.productCount }}</td>
+              <td>{{ category.totalQuantity }}</td>
+              <td>{{ category.totalValue | currency:'LKR ':'symbol':'1.2-2' }}</td>
+            </tr>
+
+            <tr *ngIf="data.stockByCategory.length === 0">
+              <td colspan="4" class="empty-message">
+                No category data available yet.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </section>
+
+  </ng-container>
+
+</div>
