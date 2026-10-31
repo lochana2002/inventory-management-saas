@@ -133,14 +133,94 @@
                 (click)="deleteProduct(product.id)">
                 Delete
               </button>
+<button
+  type="button"
+  class="stock-in-btn"
+  (click)="openStockAdjustment(product, 'in')">
+  Stock In
+</button>
 
+<button
+  type="button"
+  class="stock-out-btn"
+  (click)="openStockAdjustment(product, 'out')">
+  Stock Out
+</button>
             </td>
 
           </tr>
 
         </tbody>
       </table>
+<!-- Stock adjustment success message -->
+<div *ngIf="stockMessage" class="stock-success">
+  {{ stockMessage }}
+</div>
 
+<!-- Stock adjustment form -->
+<div *ngIf="selectedProduct as product" class="stock-adjustment-card">
+
+  <h2>
+    {{ adjustmentType === 'in' ? 'Add Stock' : 'Remove Stock' }}
+  </h2>
+
+  <p>
+    Product: <strong>{{ product.name }}</strong>
+  </p>
+
+  <p>
+    Current Quantity: <strong>{{ product.quantity }}</strong>
+  </p>
+
+  <form (ngSubmit)="submitStockAdjustment()">
+
+    <label for="adjustmentQuantity">
+      Quantity
+    </label>
+
+    <input
+      id="adjustmentQuantity"
+      type="number"
+      name="adjustmentQuantity"
+      [(ngModel)]="adjustmentQuantity"
+      min="1"
+      step="1"
+      required
+    />
+
+    <p *ngIf="adjustmentType === 'out'" class="available-stock">
+      Maximum available stock: {{ product.quantity }}
+    </p>
+
+    <p *ngIf="stockError" class="stock-error">
+      {{ stockError }}
+    </p>
+
+    <div class="stock-form-actions">
+
+      <button
+        type="submit"
+        [disabled]="isAdjusting">
+        {{
+          isAdjusting
+            ? 'Processing...'
+            : (adjustmentType === 'in' ? 'Confirm Stock In' : 'Confirm Stock Out')
+        }}
+      </button>
+
+      <button
+        type="button"
+        class="cancel-btn"
+        [disabled]="isAdjusting"
+        (click)="cancelStockAdjustment()">
+        Cancel
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
     </div>
 
   </div>
