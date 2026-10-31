@@ -6,36 +6,54 @@ import { Login } from './features/auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard/dashboard';
 import { ProductList } from './features/products/product-list/product-list';
 import { ProductForm } from './features/products/product-form/product-form';
+import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
-  { path: 'register', component: Register },
 
-  { path: 'login', component: Login },
-
+  // Public routes - without sidebar
   {
-    path: 'dashboard',
-    component: Dashboard,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'products',
-    component: ProductList,
-    canActivate: [authGuard]
+    path: 'register',
+    component: Register
   },
   {
-  path: 'products/add',
-  component: ProductForm,
-  canActivate: [authGuard]
-},
-{
-  path: 'products/edit/:id',
-  component: ProductForm,
-  canActivate: [authGuard]
-},
+    path: 'login',
+    component: Login
+  },
 
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // Protected routes - with shared sidebar
+  {
+    path: '',
+    component: DashboardLayout,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: Dashboard
+      },
+      {
+        path: 'products',
+        component: ProductList
+      },
+      {
+        path: 'products/add',
+        component: ProductForm
+      },
+      {
+        path: 'products/edit/:id',
+        component: ProductForm
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
+  },
 
-  { path: '**', redirectTo: 'login' }
+  // Unknown routes
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];
