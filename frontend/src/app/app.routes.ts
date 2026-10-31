@@ -1,6 +1,7 @@
 
 import { Routes } from '@angular/router';
 
+import { Home } from './features/home/home';
 import { Register } from './features/auth/register/register';
 import { Login } from './features/auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard/dashboard';
@@ -11,7 +12,14 @@ import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
 
-  // Public routes - without sidebar
+  // Public landing page
+  {
+    path: '',
+    component: Home,
+    pathMatch: 'full'
+  },
+
+  // Public authentication pages
   {
     path: 'register',
     component: Register
@@ -21,7 +29,7 @@ export const routes: Routes = [
     component: Login
   },
 
-  // Protected routes - with shared sidebar
+  // Protected pages with shared sidebar
   {
     path: '',
     component: DashboardLayout,
@@ -54,6 +62,6 @@ export const routes: Routes = [
   // Unknown routes
   {
     path: '**',
-    redirectTo: 'login'
+    redirectTo: ''
   }
 ];
