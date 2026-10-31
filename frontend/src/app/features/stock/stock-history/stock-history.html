@@ -1,0 +1,111 @@
+<div class="history-page">
+
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">INVENTORY MANAGEMENT</span>
+      <h1>Stock Movement History</h1>
+      <p>Track all stock additions and reductions.</p>
+    </div>
+
+    <button class="refresh-btn" (click)="loadMovements()">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <span>Total Movements</span>
+      <h2>{{ movements.length }}</h2>
+    </div>
+
+    <div class="summary-card">
+      <span>Stock In</span>
+      <h2 class="stock-in">{{ stockInCount }}</h2>
+    </div>
+
+    <div class="summary-card">
+      <span>Stock Out</span>
+      <h2 class="stock-out">{{ stockOutCount }}</h2>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <input
+      type="text"
+      placeholder="Search product name or SKU..."
+      [(ngModel)]="searchTerm"
+    />
+
+    <select [(ngModel)]="selectedType">
+      <option value="All">All Movements</option>
+      <option value="StockIn">Stock In</option>
+      <option value="StockOut">Stock Out</option>
+    </select>
+  </div>
+
+  <div *ngIf="isLoading" class="message">
+    Loading stock history...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadMovements()">Try Again</button>
+  </div>
+
+  <div class="table-container" *ngIf="!isLoading && !errorMessage">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>SKU</th>
+          <th>Movement</th>
+          <th>Quantity</th>
+          <th>Previous Stock</th>
+          <th>New Stock</th>
+          <th>Date & Time</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let movement of filteredMovements">
+
+          <td class="product-name">
+            {{ movement.productName }}
+          </td>
+
+          <td>{{ movement.sku }}</td>
+
+          <td>
+            <span
+              class="movement-badge"
+              [class.in]="movement.type === 'StockIn'"
+              [class.out]="movement.type === 'StockOut'">
+              {{ movement.type === 'StockIn' ? 'Stock In' : 'Stock Out' }}
+            </span>
+          </td>
+
+          <td [class.stock-in]="movement.type === 'StockIn'"
+              [class.stock-out]="movement.type === 'StockOut'">
+            {{ movement.type === 'StockIn' ? '+' : '-' }}{{ movement.quantity }}
+          </td>
+
+          <td>{{ movement.previousQuantity }}</td>
+
+          <td>{{ movement.newQuantity }}</td>
+
+          <td>{{ movement.createdAt | date:'medium' }}</td>
+
+        </tr>
+
+        <tr *ngIf="filteredMovements.length === 0">
+          <td colspan="7" class="empty-message">
+            No stock movements found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

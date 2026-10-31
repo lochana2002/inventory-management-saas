@@ -130,25 +130,5 @@
     padding: 11px 8px;
   }
 
-  .sidebar-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: 12px;
-    margin-top: 15px;
-  }
-
-  .sidebar-footer p {
-    margin: 0;
-  }
-
-  .sidebar-footer button {
-    width: auto;
-    padding: 9px 18px;
-  }
-
-  .main-content {
-    padding: 18px 12px;
-  }
+  
 }

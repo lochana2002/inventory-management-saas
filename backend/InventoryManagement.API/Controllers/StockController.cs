@@ -128,5 +128,35 @@ namespace InventoryManagement.API.Controllers
                 newQuantity = product.Quantity
             });
         }
+
+        [HttpGet]
+public async Task<IActionResult> GetStockMovements()
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    if (string.IsNullOrEmpty(userId))
+    {
+        return Unauthorized();
+    }
+
+    var movements = await _context.StockMovements
+        .Where(m => m.UserId == userId)
+        .OrderByDescending(m => m.CreatedAt)
+        .Select(m => new
+        {
+            m.Id,
+            m.ProductId,
+            ProductName = m.Product!.Name,
+            SKU = m.Product!.SKU,
+            Type = m.Type.ToString(),
+            m.Quantity,
+            m.PreviousQuantity,
+            m.NewQuantity,
+            m.CreatedAt
+        })
+        .ToListAsync();
+
+    return Ok(movements);
+}
     }
 }

@@ -9,6 +9,7 @@ import { ProductList } from './features/products/product-list/product-list';
 import { ProductForm } from './features/products/product-form/product-form';
 import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 import { authGuard } from './guards/auth-guard';
+import { StockHistoryComponent } from './features/stock/stock-history/stock-history';
 
 export const routes: Routes = [
 
@@ -51,6 +52,7 @@ export const routes: Routes = [
         path: 'products/edit/:id',
         component: ProductForm
       },
+      { path: 'stock-history', component: StockHistoryComponent },
       {
         path: '',
         redirectTo: 'dashboard',
