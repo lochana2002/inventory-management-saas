@@ -1,31 +1,83 @@
+
 <div class="products-container">
 
+  <!-- Page Header -->
   <div class="page-header">
-  <div>
-    <h1>Products</h1>
-    <p>Manage your inventory products.</p>
+    <div>
+      <h1>Products</h1>
+      <p>Manage your inventory products.</p>
+    </div>
+
+    <a routerLink="/products/add" class="add-product-btn">
+      + Add Product
+    </a>
   </div>
 
-  <a routerLink="/products/add" class="add-product-btn">
-    + Add Product
-  </a>
-</div>
+  <!-- Search and Filters -->
+  <div class="filter-section">
 
+    <input
+      type="text"
+      placeholder="Search by product name or SKU..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="applyFilters()"
+    />
+
+    <select
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="applyFilters()">
+
+      <option value="">All Categories</option>
+
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+
+    <select
+      [(ngModel)]="selectedStockStatus"
+      (ngModelChange)="applyFilters()">
+
+      <option value="">All Stock Status</option>
+      <option value="in">In Stock</option>
+      <option value="low">Low Stock</option>
+    </select>
+
+    <button type="button" (click)="clearFilters()">
+      Clear Filters
+    </button>
+
+  </div>
+
+  <!-- Loading -->
   <div *ngIf="isLoading" class="message">
     Loading products...
   </div>
 
+  <!-- Error -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
   <div *ngIf="!isLoading && !errorMessage">
 
+    <!-- No Products -->
     <div *ngIf="products.length === 0" class="empty-message">
       No products found. Add your first product!
     </div>
 
-    <div class="table-container" *ngIf="products.length > 0">
+    <!-- No Search Results -->
+    <div
+      *ngIf="products.length > 0 && filteredProducts.length === 0"
+      class="empty-message">
+      No matching products found.
+    </div>
+
+    <!-- Products Table -->
+    <div
+      class="table-container"
+      *ngIf="filteredProducts.length > 0">
+
       <table>
         <thead>
           <tr>
@@ -40,34 +92,55 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let product of products">
-            <td>{{ product.name }}</td>
-            <td>{{ product.sku }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.price | currency:'LKR ':'symbol':'1.2-2' }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>
-  <span
-    [class.low-stock]="product.quantity <= product.lowStockThreshold"
-    [class.in-stock]="product.quantity > product.lowStockThreshold">
-    {{ product.quantity <= product.lowStockThreshold ? 'Low Stock' : 'In Stock' }}
-  </span>
-</td>
-<td class="action-buttons">
-  <a [routerLink]="['/products/edit', product.id]" class="edit-btn">
-    Edit
-  </a>
 
-  <button
-    type="button"
-    class="delete-btn"
-    (click)="deleteProduct(product.id)">
-    Delete
-  </button>
-</td>
+          <tr *ngFor="let product of filteredProducts">
+
+            <td>{{ product.name }}</td>
+
+            <td>{{ product.sku }}</td>
+
+            <td>{{ product.category }}</td>
+
+            <td>
+              {{ product.price | currency:'LKR ':'symbol':'1.2-2' }}
+            </td>
+
+            <td>{{ product.quantity }}</td>
+
+            <td>
+              <span
+                [class.low-stock]="product.quantity <= product.lowStockThreshold"
+                [class.in-stock]="product.quantity > product.lowStockThreshold">
+
+                {{ product.quantity <= product.lowStockThreshold
+                  ? 'Low Stock'
+                  : 'In Stock' }}
+
+              </span>
+            </td>
+
+            <td class="action-buttons">
+
+              <a
+                [routerLink]="['/products/edit', product.id]"
+                class="edit-btn">
+                Edit
+              </a>
+
+              <button
+                type="button"
+                class="delete-btn"
+                (click)="deleteProduct(product.id)">
+                Delete
+              </button>
+
+            </td>
+
           </tr>
+
         </tbody>
       </table>
+
     </div>
 
   </div>

@@ -132,3 +132,52 @@ td {
 .delete-btn:hover {
   background: #fecaca;
 }
+
+.filter-section {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.filter-section input,
+.filter-section select {
+  padding: 11px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 14px;
+  background: white;
+}
+
+.filter-section input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.filter-section select {
+  min-width: 160px;
+}
+
+.filter-section button {
+  padding: 11px 16px;
+  border: none;
+  border-radius: 7px;
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.filter-section button:hover {
+  background: #d1d5db;
+}
+
+@media (max-width: 600px) {
+  .filter-section {
+    flex-direction: column;
+  }
+
+  .filter-section input,
+  .filter-section select,
+  .filter-section button {
+    width: 100%;
+  }
+}
