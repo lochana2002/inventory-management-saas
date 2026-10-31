@@ -1,3 +1,4 @@
+
 :host {
   display: block;
   min-height: 100vh;
@@ -10,111 +11,184 @@
 .auth-container {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #f7f3ee;
-  padding: 30px 20px;
+  justify-content: center;
+  padding: 40px 50px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(45, 27, 17, 0.72),
+      rgba(45, 27, 17, 0.18)
+    ),
+     url('/assets/images/warehouse-bg.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.auth-card {
-  background: #ffffff;
+.auth-content {
   width: 100%;
-  max-width: 460px;
-  padding: 38px;
-  border-radius: 16px;
-  border: 1px solid #eee5dc;
-  box-shadow: 0 10px 35px rgba(56, 39, 30, 0.08);
+  max-width: 1250px;
+
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  align-items: center;
+  gap: 70px;
 }
 
-.brand {
-  text-align: center;
-  margin-bottom: 30px;
+/* Branding section */
+
+.brand-panel {
+  color: #ffffff;
+  padding: 30px;
 }
 
 .brand h1 {
-  color: #795239;
-  font-size: 30px;
-  font-weight: 750;
-  letter-spacing: -1px;
-  margin: 0 0 6px;
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin: 0 0 10px;
 }
 
-.brand p,
-.subtitle {
-  color: #8b8178;
+.brand p {
+  font-size: 17px;
+  color: #f3e5d7;
+  margin: 0;
+}
+
+.brand-message {
+  margin-top: 100px;
+}
+
+.brand-message h2 {
+  font-size: 43px;
+  line-height: 1.25;
+  margin: 0 0 25px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.brand-message h2 span {
+  color: #f2c69d;
+  font-style: italic;
+}
+
+.brand-message p {
+  font-size: 21px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.brand-message p span {
+  color: #e9b887;
+  padding: 0 8px;
+}
+
+/* Glass registration card */
+
+.auth-card {
+  width: 100%;
+  padding: 38px 42px;
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.20);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.20);
+}
+
+.form-heading {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.form-heading h2 {
+  margin: 0 0 8px;
+  color: #38271e;
+  font-size: 25px;
+  font-weight: 750;
+}
+
+.form-heading p {
+  color: #514033;
   font-size: 14px;
   margin: 0;
 }
 
-h2 {
-  margin: 0 0 8px;
-  color: #38271e;
-  font-size: 23px;
-  font-weight: 700;
-}
-
-.subtitle {
-  margin-bottom: 20px;
-}
+/* Form fields */
 
 .form-group {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
-label {
+.form-group label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #514033;
+  color: #38271e;
 }
 
-input {
+.form-group input {
   width: 100%;
   padding: 13px 14px;
-  border: 1px solid #ded3c8;
-  border-radius: 8px;
-  outline: none;
-  background: #fffdfa;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.55);
   color: #38271e;
   font-size: 14px;
+
+  outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input::placeholder {
-  color: #aaa096;
+.form-group input::placeholder {
+  color: #76685d;
 }
 
-input:focus {
-  border-color: #b8875b;
-  box-shadow: 0 0 0 3px rgba(184, 135, 91, 0.13);
-  background: #ffffff;
+.form-group input:focus {
+  border-color: #795239;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(121, 82, 57, 0.15);
 }
 
-small {
+.form-group small {
   display: block;
-  color: #c0392b;
+  color: #a32620;
   margin-top: 6px;
   font-size: 12px;
 }
 
+/* Submit button */
+
 button {
   width: 100%;
   padding: 14px;
-  margin-top: 26px;
+  margin-top: 24px;
+
   background: #795239;
-  color: white;
+  color: #ffffff;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
+
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+
   transition: background 0.2s, transform 0.2s;
 }
 
 button:hover:not(:disabled) {
   background: #5f402d;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 button:disabled {
@@ -122,58 +196,102 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.login-link {
-  text-align: center;
-  margin-top: 24px;
-  font-size: 14px;
-  color: #81766c;
-}
-
-a {
-  color: #795239;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-a:hover {
-  color: #b8875b;
-  text-decoration: underline;
-}
+/* Success and error messages */
 
 .success-message {
-  background: #edf6ed;
+  background: rgba(237, 246, 237, 0.95);
   color: #28643b;
   border: 1px solid #cce5cf;
   padding: 12px;
   border-radius: 8px;
-  margin-top: 15px;
+  margin-bottom: 15px;
   font-size: 14px;
 }
 
 .error-message {
-  background: #fdf0ed;
+  background: rgba(253, 240, 237, 0.95);
   color: #a33c30;
   border: 1px solid #f2d1ca;
   padding: 12px;
   border-radius: 8px;
-  margin-top: 15px;
+  margin-bottom: 15px;
   font-size: 14px;
+}
+
+/* Login link */
+
+.login-link {
+  text-align: center;
+  margin-top: 23px;
+  font-size: 14px;
+  color: #38271e;
+}
+
+.login-link a {
+  color: #704326;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  color: #a66c3f;
+  text-decoration: underline;
+}
+
+/* Responsive design */
+
+@media (max-width: 900px) {
+  .auth-container {
+    padding: 30px 20px;
+  }
+
+  .auth-content {
+    max-width: 500px;
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .brand-panel {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .brand h1 {
+    font-size: 38px;
+  }
+
+  .brand-message {
+    margin-top: 20px;
+  }
+
+  .brand-message h2 {
+    font-size: 29px;
+  }
+
+  .brand-message p {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 480px) {
   .auth-container {
-    padding: 18px 12px;
+    padding: 20px 14px;
   }
 
   .auth-card {
     padding: 28px 22px;
+    border-radius: 18px;
   }
 
   .brand h1 {
-    font-size: 27px;
+    font-size: 32px;
   }
 
-  h2 {
-    font-size: 21px;
+  .brand-message h2 {
+    font-size: 25px;
+  }
+
+  .form-heading h2 {
+    font-size: 22px;
   }
 }
