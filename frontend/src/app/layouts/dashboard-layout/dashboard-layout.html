@@ -1,44 +1,73 @@
 <div class="app-layout">
 
-  <aside class="sidebar">
+  <aside class="sidebar" [class.menu-open]="isMobileMenuOpen">
 
+    <!-- Branding -->
     <div class="brand">
       <h2>StockFlow</h2>
       <p>Inventory Management</p>
     </div>
 
-    <nav class="sidebar-nav">
+    <!-- Mobile hamburger button -->
+    <button
+      class="mobile-menu-toggle"
+      type="button"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-controls="sidebar-navigation"
+      aria-label="Toggle navigation menu">
 
-      <a routerLink="/dashboard"
-         routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact: true }">
-        <span>▦</span>
-        Dashboard
-      </a>
+      {{ isMobileMenuOpen ? '✕' : '☰' }}
 
-      <a routerLink="/products"
-         routerLinkActive="active">
-        <span>▤</span>
-        Products
-      </a>
+    </button>
 
-      <a routerLink="/stock-history" routerLinkActive="active">
-  <span>↗</span>
-  <span>Stock History</span>
-</a>
-<a routerLink="/reports" routerLinkActive="active">
-  <span>▥</span>
-  <span>Inventory Reports</span>
-</a>
-    </nav>
+    <!-- Navigation and user menu -->
+    <div class="mobile-menu-panel">
 
-    <div class="sidebar-footer">
-      <p>{{ userName }}</p>
-      <button (click)="logout()">Logout</button>
+      <nav class="sidebar-nav" id="sidebar-navigation">
+
+        <a routerLink="/dashboard"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }"
+           (click)="closeMobileMenu()">
+          <span>▦</span>
+          Dashboard
+        </a>
+
+        <a routerLink="/products"
+           routerLinkActive="active"
+           (click)="closeMobileMenu()">
+          <span>▤</span>
+          Products
+        </a>
+
+        <a routerLink="/stock-history"
+           routerLinkActive="active"
+           (click)="closeMobileMenu()">
+          <span>↗</span>
+          <span>Stock History</span>
+        </a>
+
+        <a routerLink="/reports"
+           routerLinkActive="active"
+           (click)="closeMobileMenu()">
+          <span>▥</span>
+          <span>Inventory Reports</span>
+        </a>
+
+      </nav>
+
+      <!-- Sidebar footer -->
+      <div class="sidebar-footer">
+        <p>{{ userName }}</p>
+        <button (click)="logout()">Logout</button>
+      </div>
+
     </div>
 
   </aside>
 
+  <!-- Main content -->
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>
