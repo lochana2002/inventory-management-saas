@@ -266,3 +266,30 @@ form {
   cursor: pointer;
   font-weight: 600;
 }
+
+/* Category Dropdown */
+.form-group select {
+  width: 100%;
+  padding: 13px 14px;
+
+  border: 1px solid #e5d9ce;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #38271e;
+
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group select:focus {
+  border-color: #795239;
+  box-shadow: 0 0 0 3px rgba(121, 82, 57, 0.15);
+}
+
+.form-group select:invalid {
+  color: #76685d;
+}

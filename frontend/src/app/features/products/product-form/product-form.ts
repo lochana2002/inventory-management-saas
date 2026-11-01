@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -29,6 +28,21 @@ export class ProductForm implements OnInit {
   isEditMode = false;
   productId: number | null = null;
   errorMessage = '';
+
+  // Available product categories
+  categories: string[] = [
+    'Electronics',
+    'Clothing',
+    'Food & Beverages',
+    'Home & Kitchen',
+    'Beauty & Personal Care',
+    'Furniture',
+    'Stationery',
+    'Sports & Outdoors',
+    'Office Supplies',
+    'Automotive',
+    'Other'
+  ];
 
   selectedImage: File | null = null;
   imagePreview: string | null = null;
@@ -119,6 +133,18 @@ export class ProductForm implements OnInit {
   loadProduct(id: number): void {
     this.productService.getProductById(id).subscribe({
       next: (product) => {
+
+        // Preserve an existing category if it is not in the dropdown list
+        if (
+          product.category &&
+          !this.categories.includes(product.category)
+        ) {
+          this.categories = [
+            ...this.categories,
+            product.category
+          ];
+        }
+
         this.productForm.patchValue({
           name: product.name,
           sku: product.sku,

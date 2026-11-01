@@ -78,16 +78,27 @@
     </div>
 
     <div class="form-group">
-      <label>Category</label>
-      <input
-        type="text"
-        formControlName="category"
-        placeholder="Enter product category">
+  <label for="category">Category</label>
 
-      <small *ngIf="productForm.controls.category.touched && productForm.controls.category.invalid">
-        Category is required.
-      </small>
-    </div>
+  <select
+    id="category"
+    formControlName="category">
+
+    <option value="" disabled>Select a category</option>
+
+    <option
+      *ngFor="let category of categories"
+      [value]="category">
+      {{ category }}
+    </option>
+
+  </select>
+
+  <small
+    *ngIf="productForm.controls.category.touched && productForm.controls.category.invalid">
+    Please select a product category.
+  </small>
+</div>
 
     <div class="form-row">
 
