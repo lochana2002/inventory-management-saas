@@ -70,7 +70,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200",
+           "https://stockflowsaas.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -105,6 +106,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
 
 // 7. Create wwwroot directory if it doesn't exist
 var webRootPath = Path.Combine(
