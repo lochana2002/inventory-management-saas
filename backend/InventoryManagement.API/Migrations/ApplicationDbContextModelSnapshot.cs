@@ -109,6 +109,9 @@ namespace InventoryManagement.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("LowStockThreshold")
                         .HasColumnType("int");
 

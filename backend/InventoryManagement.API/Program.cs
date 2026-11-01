@@ -4,6 +4,7 @@ using InventoryManagement.API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -81,15 +82,16 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = Microsoft.OpenApi.SecuritySchemeType.Http,
-        Scheme = "bearer",
-        BearerFormat = "JWT",
-        In = Microsoft.OpenApi.ParameterLocation.Header,
-        Description = "Enter your JWT token."
-    });
+    options.AddSecurityDefinition("Bearer",
+        new Microsoft.OpenApi.OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = Microsoft.OpenApi.SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = Microsoft.OpenApi.ParameterLocation.Header,
+            Description = "Enter your JWT token."
+        });
 
     options.AddSecurityRequirement(document =>
         new Microsoft.OpenApi.OpenApiSecurityRequirement
@@ -104,17 +106,35 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+// 7. Create wwwroot directory if it doesn't exist
+var webRootPath = Path.Combine(
+    app.Environment.ContentRootPath,
+    "wwwroot"
+);
+
+Directory.CreateDirectory(webRootPath);
+
+// 8. Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// 9. CORS
 app.UseCors("AllowAngular");
 
+// 10. Serve uploaded product images
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(webRootPath)
+});
+
+// 11. Authentication and authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
+// 12. Map API controllers
 app.MapControllers();
 
 app.Run();
