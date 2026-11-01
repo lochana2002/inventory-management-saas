@@ -28,3 +28,17 @@ export interface UpdateProductRequest {
   quantity: number;
   lowStockThreshold: number;
 }
+
+export interface Product {
+  id: number;
+  userId: string;
+  name: string;
+  sku: string;
+  category: string;
+  price: number;
+  quantity: number;
+  lowStockThreshold: number;
+  imageUrl?: string | null;
+  createdAt: string;
+  updatedAt?: string;
+}

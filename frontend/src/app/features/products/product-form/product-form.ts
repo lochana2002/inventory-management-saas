@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -8,6 +9,8 @@ import {
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 
 import { ProductService } from '../../../services/product';
+import { ProductImage } from '../../../services/product-image';
+
 import {
   CreateProductRequest,
   UpdateProductRequest
@@ -27,11 +30,16 @@ export class ProductForm implements OnInit {
   productId: number | null = null;
   errorMessage = '';
 
+  selectedImage: File | null = null;
+  imagePreview: string | null = null;
+  existingImageUrl: string | null = null;
+
   productForm;
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
+    private productImageService: ProductImage,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -55,6 +63,59 @@ export class ProductForm implements OnInit {
     }
   }
 
+  getImageUrl(imageUrl?: string | null): string {
+    if (!imageUrl) {
+      return '';
+    }
+
+    return imageUrl.startsWith('http')
+      ? imageUrl
+      : `http://localhost:5174${imageUrl}`;
+  }
+
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    const allowedTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/webp'
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      this.errorMessage = 'Please select a JPG, PNG or WEBP image.';
+      input.value = '';
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      this.errorMessage = 'Image size cannot exceed 5 MB.';
+      input.value = '';
+      return;
+    }
+
+    this.errorMessage = '';
+    this.selectedImage = file;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  removeSelectedImage(): void {
+    this.selectedImage = null;
+    this.imagePreview = null;
+  }
+
   loadProduct(id: number): void {
     this.productService.getProductById(id).subscribe({
       next: (product) => {
@@ -66,6 +127,10 @@ export class ProductForm implements OnInit {
           quantity: product.quantity,
           lowStockThreshold: product.lowStockThreshold
         });
+
+        this.existingImageUrl = product.imageUrl
+          ? this.getImageUrl(product.imageUrl)
+          : null;
       },
       error: (error) => {
         console.error('Error loading product:', error);
@@ -93,8 +158,7 @@ export class ProductForm implements OnInit {
         productData
       ).subscribe({
         next: () => {
-          this.isSubmitting = false;
-          this.router.navigate(['/products']);
+          this.uploadImageIfSelected(this.productId!);
         },
         error: (error) => {
           console.error('Error updating product:', error);
@@ -110,9 +174,13 @@ export class ProductForm implements OnInit {
         this.productForm.getRawValue() as CreateProductRequest;
 
       this.productService.createProduct(productData).subscribe({
-        next: () => {
-          this.isSubmitting = false;
-          this.router.navigate(['/products']);
+        next: (createdProduct) => {
+          if (this.selectedImage) {
+            this.uploadImageIfSelected(createdProduct.id);
+          } else {
+            this.isSubmitting = false;
+            this.router.navigate(['/products']);
+          }
         },
         error: (error) => {
           console.error('Error creating product:', error);
@@ -122,5 +190,29 @@ export class ProductForm implements OnInit {
         }
       });
     }
+  }
+
+  private uploadImageIfSelected(productId: number): void {
+    if (!this.selectedImage) {
+      this.isSubmitting = false;
+      this.router.navigate(['/products']);
+      return;
+    }
+
+    this.productImageService.uploadImage(
+      productId,
+      this.selectedImage
+    ).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.router.navigate(['/products']);
+      },
+      error: (error) => {
+        console.error('Image upload failed:', error);
+        this.errorMessage =
+          'Product was saved, but image upload failed. Please try editing the product and uploading the image again.';
+        this.isSubmitting = false;
+      }
+    });
   }
 }

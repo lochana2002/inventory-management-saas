@@ -4,6 +4,7 @@
   <!-- Page Header -->
   <div class="page-header">
     <div>
+         <span class="eyebrow">PRODUCT MANAGEMENT</span>
       <h1>Products</h1>
       <p>Manage your inventory products.</p>
     </div>
@@ -95,7 +96,28 @@
 
           <tr *ngFor="let product of filteredProducts">
 
-            <td>{{ product.name }}</td>
+            <td>
+  <div class="product-info">
+
+    <img
+      *ngIf="product.imageUrl"
+      [src]="'http://localhost:5174' + product.imageUrl"
+      [alt]="product.name"
+      class="product-thumbnail">
+
+    <div
+      *ngIf="!product.imageUrl"
+      class="product-image-placeholder">
+      📦
+    </div>
+
+    <div class="product-details">
+      <strong>{{ product.name }}</strong>
+      <small>{{ product.sku }}</small>
+    </div>
+
+  </div>
+</td>
 
             <td>{{ product.sku }}</td>
 
