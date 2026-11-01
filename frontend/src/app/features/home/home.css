@@ -602,3 +602,103 @@
     font-size: 25px;
   }
 }
+
+/* FADE-IN ANIMATIONS */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* HERO CONTENT */
+
+.hero-content {
+  animation: fadeIn 0.9s ease-out 0.2s both;
+}
+
+/* HERO IMAGE */
+
+.hero-visual {
+  animation: fadeIn 1s ease-out 0.4s both;
+}
+
+/* FEATURES SECTION */
+
+.section-heading {
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+/* FEATURE CARDS */
+
+.feature-card {
+  animation: fadeIn 0.7s ease-out both;
+}
+
+.feature-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.feature-card:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.feature-card:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.feature-card:nth-child(4) {
+  animation-delay: 0.65s;
+}
+
+/* ABOUT SECTION */
+
+.about-content {
+  animation: fadeIn 0.9s ease-out 0.2s both;
+}
+
+.about-visual {
+  animation: fadeIn 0.9s ease-out 0.4s both;
+}
+
+/* ABOUT CARDS */
+
+.about-card {
+  animation: fadeIn 0.7s ease-out both;
+}
+
+.about-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.about-card:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.about-card:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+/* CALL TO ACTION */
+
+.cta-section {
+  animation: fadeIn 0.9s ease-out 0.2s both;
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

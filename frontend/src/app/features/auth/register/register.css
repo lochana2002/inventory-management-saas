@@ -295,3 +295,39 @@ button:disabled {
     font-size: 22px;
   }
 }
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main content */
+.auth-content {
+  animation: fadeIn 0.9s ease-out both;
+}
+
+/* Branding section */
+.brand-panel {
+  animation: fadeIn 0.9s ease-out 0.2s both;
+}
+
+/* Registration card */
+.auth-card {
+  animation: fadeIn 0.9s ease-out 0.4s both;
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .auth-content,
+  .brand-panel,
+  .auth-card {
+    animation: none;
+  }
+}
