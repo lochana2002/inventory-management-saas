@@ -182,8 +182,8 @@ button {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-
-  transition: background 0.2s, transform 0.2s;
+  
+transition: background 0.2s, transform 0.2s;
 }
 
 button:hover:not(:disabled) {

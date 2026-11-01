@@ -17,3 +17,94 @@
     <a routerLink="/register" class="signup-button active-link">Get Started</a>
   </div>
 </header>
+
+<!-- Registration Content -->
+<div class="auth-container">
+  <div class="auth-content">
+
+    <!-- Branding section -->
+    <div class="brand-panel">
+      <div class="brand">
+        <h1>StockFlow</h1>
+        <p>Inventory Management System</p>
+      </div>
+
+      <div class="brand-message">
+        <h2>Smarter Inventory.<br>
+          <span>Stronger Business.</span>
+        </h2>
+        <p>Track <span>•</span> Manage <span>•</span> Grow</p>
+      </div>
+    </div>
+
+    <!-- Registration card -->
+    <div class="auth-card">
+      <div class="form-heading">
+        <h2>Create your account</h2>
+        <p>Get started with StockFlow today.</p>
+      </div>
+
+      <div class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input
+            id="fullName"
+            type="text"
+            formControlName="fullName"
+            placeholder="Enter your full name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Create a password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+          />
+        </div>
+
+        <button type="submit" [disabled]="isLoading">
+          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+        </button>
+
+      </form>
+
+      <p class="login-link">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </p>
+    </div>
+
+  </div>
+</div>
