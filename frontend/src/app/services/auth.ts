@@ -25,7 +25,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class Auth {
-  private apiUrl = 'http://localhost:5174/api/Auth';
+  private apiUrl = 'https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net/api/Auth';
 
   constructor(private http: HttpClient) {}
 

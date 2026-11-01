@@ -11,7 +11,7 @@ export interface ImageUploadResponse {
   providedIn: 'root'
 })
 export class ProductImage {
-  private apiUrl = 'http://localhost:5174/api/ProductImages';
+  private apiUrl = 'https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net/api/ProductImages';
 
   constructor(private http: HttpClient) {}
 

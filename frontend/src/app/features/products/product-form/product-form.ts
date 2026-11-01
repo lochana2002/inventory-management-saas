@@ -84,7 +84,7 @@ export class ProductForm implements OnInit {
 
     return imageUrl.startsWith('http')
       ? imageUrl
-      : `http://localhost:5174${imageUrl}`;
+      : `https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net${imageUrl}`;
   }
 
   onImageSelected(event: Event): void {

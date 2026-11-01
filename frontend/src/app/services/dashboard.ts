@@ -8,7 +8,7 @@ import { DashboardStats } from '../models/dashboard-stats';
 })
 export class DashboardService {
 
-  private apiUrl = 'http://localhost:5174/api/Dashboard';
+  private apiUrl = 'https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net/api/Dashboard';
 
   constructor(private http: HttpClient) {}
 

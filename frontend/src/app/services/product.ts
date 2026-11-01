@@ -13,7 +13,7 @@ import {
 })
 export class ProductService {
 
-  private apiUrl = 'http://localhost:5174/api/Products';
+  private apiUrl = 'https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net/api/Products';
 
   constructor(private http: HttpClient) {}
 

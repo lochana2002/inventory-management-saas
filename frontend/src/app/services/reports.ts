@@ -7,7 +7,7 @@ import { InventoryReport } from '../models/inventory-report';
   providedIn: 'root'
 })
 export class Reports {
-  private apiUrl = 'http://localhost:5174/api/Reports';
+  private apiUrl = 'https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net/api/Reports';
 
   constructor(private http: HttpClient) {}
 

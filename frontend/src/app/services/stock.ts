@@ -12,7 +12,7 @@ import {
 })
 export class StockService {
 
-  private apiUrl = 'http://localhost:5174/api/Stock';
+  private apiUrl = 'https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net/api/Stock';
 
   constructor(private http: HttpClient) {}
 
