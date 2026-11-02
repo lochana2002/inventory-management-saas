@@ -6,7 +6,7 @@ A multi-user Inventory Management SaaS application that helps businesses manage 
 
 ## Live Application
 
-- **Frontend:** https://stockflowsaas.vercel.app/login
+- **Frontend:** https://stockflowsaas.vercel.app/
 - **Backend API:** https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net
 - **GitHub Repository:** https://github.com/lochana2002/inventory-management-saas
 
