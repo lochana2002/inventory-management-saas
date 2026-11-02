@@ -1,62 +1,90 @@
-# Inventory Management SaaS
+# StockFlow – Inventory Management SaaS
 
-A multi-user Inventory Management System built to help users manage products, monitor stock levels, and maintain inventory records through a web-based dashboard.
+A multi-user Inventory Management SaaS application that helps businesses manage products, monitor stock levels, record stock movements, and generate inventory reports through a responsive web dashboard.
+
+**Developed as a technical assignment for Webcomms Global (Pvt) Ltd.**
+
+## Live Application
+
+- **Frontend:** https://stockflowsaas.vercel.app/login
+- **Backend API:** https://stockflow-api-cjd6g2d3bab4bebm.southeastasia-01.azurewebsites.net
+- **GitHub Repository:** https://github.com/lochana2002/inventory-management-saas
 
 ## Project Overview
 
-This project is being developed as a technical assignment for Webcomms Global (Pvt) Ltd.
+StockFlow is designed as a multi-user inventory management platform. Each registered user can securely manage their own inventory, with authentication and user-specific data access.
 
-The application is designed as a SaaS platform where each registered user can manage their own inventory securely.
+The application provides tools to manage products, track stock movements, identify low-stock items, and monitor inventory performance.
+
+## Features
+
+### Authentication and Security
+- User registration and login.
+- JWT-based authentication.
+- Secure password hashing.
+- Protected API endpoints.
+- User-specific data separation.
+
+### Dashboard
+- Total products overview.
+- Available stock summary.
+- Low-stock product overview.
+- Inventory statistics.
+
+### Product Management
+- Create, view, update, and delete products.
+- Manage product names, SKUs, categories, prices, and quantities.
+- Upload product images.
+- Search products by name or SKU.
+- Filter products by category and stock status.
+
+### Stock Management
+- Add stock (Stock In).
+- Reduce stock (Stock Out).
+- Prevent negative stock quantities.
+- Record stock movements.
+
+### Reports and History
+- View stock movement history.
+- Monitor inventory changes.
+- Generate inventory reports.
 
 ## Technologies Used
 
 ### Frontend
 - Angular 21
 - TypeScript
-- HTML
-- CSS
+- HTML5
+- CSS3
 
 ### Backend
 - ASP.NET Core Web API (.NET 9)
 - C#
 - Entity Framework Core
+- JWT Authentication
+- ASP.NET Core Identity
 
 ### Database
-- Microsoft SQL Server Express
+- Microsoft SQL Server
+- Azure SQL Database (production)
+- SQL Server Express (local development)
 
-## Current Development Progress
-
-### Completed
-- [x] Created Angular frontend application.
-- [x] Created ASP.NET Core Web API project.
-- [x] Configured SQL Server Express connection.
-- [x] Created the InventoryManagementDB database.
-- [x] Implemented the initial database structure using Entity Framework Core.
-- [x] Created ApplicationUser model.
-- [x] Created Product model.
-- [x] Created StockMovement model.
-- [x] Configured user-product relationships.
-- [x] Added a unique SKU constraint for each user.
-- [x] Added initial EF Core database migration.
-
-### Planned Features
-- [ ] User registration and login.
-- [ ] JWT-based authentication.
-- [ ] User-specific inventory dashboard.
-- [ ] Product creation, viewing, updating, and deletion.
-- [ ] Stock addition and reduction.
-- [ ] Prevention of negative stock quantities.
-- [ ] Low-stock alerts.
-- [ ] Product search and category filtering.
-- [ ] Responsive user interface.
-- [ ] Stock movement history.
+### Deployment
+- Vercel – Frontend hosting
+- Microsoft Azure App Service – Backend hosting
+- Azure SQL Database – Production database
 
 ## Project Structure
 
 ```text
 inventory-management-saas/
 │
-├── frontend/                  # Angular application
+├── frontend/
+│   └── src/
+│       └── app/
+│           ├── features/
+│           ├── services/
+│           └── ...
 │
 ├── backend/
 │   └── InventoryManagement.API/
@@ -73,71 +101,159 @@ inventory-management-saas/
 └── README.md
 ```
 
-## Database Configuration
-
-The application uses SQL Server Express.
-
-Database name: `InventoryManagementDB`
-
-Configure the database connection string in `appsettings.json`:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=.\\SQLEXPRESS;Database=InventoryManagementDB;Trusted_Connection=True;TrustServerCertificate=True;"
-  }
-}
-```
-
-## How to Run the Project
+## Installation and Setup
 
 ### Prerequisites
 
-- Node.js and npm
-- Angular CLI
-- .NET 9 SDK
-- SQL Server Express
-- Visual Studio Code
+Install the following tools:
 
-### 1. Clone the repository
+- [Node.js](https://nodejs.org/)
+- [Angular CLI](https://angular.dev/tools/cli)
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+- [SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/ssms/install/install)
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/lochana2002/inventory-management-saas.git
 cd inventory-management-saas
 ```
 
-### 2. Run the Backend
+### 2. Configure the Database
 
-```powershell
+The application uses Microsoft SQL Server.
+
+For local development, create or configure the `InventoryManagementDB` database using SQL Server Express.
+
+Configure the connection string in the backend configuration or through the `ConnectionStrings__DefaultConnection` environment variable.
+
+Example local connection string:
+
+```text
+Server=.\\SQLEXPRESS;Database=InventoryManagementDB;Trusted_Connection=True;TrustServerCertificate=True;
+```
+
+**Important:** Do not commit database passwords, production connection strings, or other secrets to GitHub.
+
+### 3. Run Database Migrations
+
+Open a terminal in the backend project directory:
+
+```bash
 cd backend/InventoryManagement.API
+```
+
+Restore the dependencies:
+
+```bash
 dotnet restore
+```
+
+Apply the Entity Framework Core migrations:
+
+```bash
+dotnet ef database update
+```
+
+If the EF Core command is unavailable, install the .NET EF tool:
+
+```bash
+dotnet tool install --global dotnet-ef --version 9.0.6
+```
+
+### 4. Run the Backend
+
+From the backend project directory:
+
+```bash
 dotnet run
 ```
 
-API URL: `http://localhost:5174`
+The local API runs at:
 
-Swagger documentation: `http://localhost:5174/swagger`
+```text
+http://localhost:5174
+```
 
-### 3. Run the Frontend
+Swagger documentation is available in the Development environment:
+
+```text
+http://localhost:5174/swagger
+```
+
+### 5. Run the Frontend
 
 Open another terminal:
 
-```powershell
+```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Start the Angular development server:
+
+```bash
 ng serve
 ```
 
-Frontend URL: `http://localhost:4200`
+Open the application:
 
-## Author
+```text
+http://localhost:4200
+```
 
-**Lochana Thathsarani**
+## Configuration and Environment Variables
 
-Software Engineering Undergraduate
+The backend requires the following configuration values:
 
-NSBM Green University
+| Variable | Purpose |
+|---|---|
+| `ConnectionStrings__DefaultConnection` | Database connection string |
+| `Jwt__Key` | JWT signing key |
+| `Jwt__Issuer` | JWT issuer |
+| `Jwt__Audience` | JWT audience |
+
+Use your own local development values. Production values are configured securely in Azure App Service and should not be added to source control.
+
+## Screenshots and Demonstration
+
+### Home Page
+![StockFlow Home](screenshots/home.png)
+
+### Register Page
+![StockFlow Register](screenshots/register.png)
+
+### Login Page
+![StockFlow Login](screenshots/login.png)
+
+### Dashboard
+![StockFlow Dashboard](screenshots/dashboard1.png)
+
+### Product Management
+![Product Management](screenshots/productcreate.png)
+
+### Product Management
+![Product Management](screenshots/productview.png)
+
+### Stock Management
+![Stock Management](screenshots/addstock.png)
+
+### Inventory Reports
+![Inventory Reports](screenshots/reports.png)
+
+### History
+![StockFlow History](screenshots/history.png)
+
+### Dashboard
+![StockFlow Dashboard](screenshots/dashboard2.png)
 
 ## Project Status
 
-Currently under development.
+**Completed – Deployed and available online.**
+
