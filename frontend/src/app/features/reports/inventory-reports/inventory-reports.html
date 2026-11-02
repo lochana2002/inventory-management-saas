@@ -89,7 +89,42 @@
         </table>
 
       </div>
+<section class="chart-section">
 
+  <div class="section-heading">
+    <h2>Inventory Distribution</h2>
+    <p>Compare stock quantities across product categories.</p>
+  </div>
+
+  <div class="chart-container">
+
+    <div
+      class="chart-row"
+      *ngFor="let category of data.stockByCategory">
+
+      <div class="chart-label">
+        <span>{{ category.category }}</span>
+        <strong>{{ category.totalQuantity }} units</strong>
+      </div>
+
+      <div class="chart-track">
+        <div
+          class="chart-bar"
+          [style.width.%]="getQuantityPercentage(category.totalQuantity)">
+        </div>
+      </div>
+
+    </div>
+
+    <div
+      *ngIf="data.stockByCategory.length === 0"
+      class="empty-message">
+      No category data available to display.
+    </div>
+
+  </div>
+
+</section>
     </section>
 
   </ng-container>

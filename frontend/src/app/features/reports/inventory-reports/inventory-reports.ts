@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Reports } from '../../../services/reports';
@@ -37,5 +38,27 @@ export class InventoryReports implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  getMaxQuantity(): number {
+    if (!this.report?.stockByCategory?.length) {
+      return 0;
+    }
+
+    return Math.max(
+      ...this.report.stockByCategory.map(
+        category => category.totalQuantity
+      )
+    );
+  }
+
+  getQuantityPercentage(quantity: number): number {
+    const maxQuantity = this.getMaxQuantity();
+
+    if (maxQuantity === 0) {
+      return 0;
+    }
+
+    return (quantity / maxQuantity) * 100;
   }
 }
